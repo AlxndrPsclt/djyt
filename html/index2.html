@@ -1,0 +1,29 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width" />
+      <title>Player using video tag</title>
+      <script src="../js/youtube-video.js"></script>
+    </head>
+    <body>
+      <p>Interact with one of the multiple videos loaded below. Notice when playing one, other videos stop playing.</p>
+      <video width="640" height="360" id="my-video1">
+        <source type="video/youtube" src="https://www.youtube.com/watch?v=hUXml2xczkM" />
+      </video>
+      <video width="640" height="360" id="my-video2">
+        <source type="video/youtube" src="https://www.youtube.com/watch?v=ZhP0vebmvnU" />
+      </video>
+      <script>
+
+var firstPlayer = new YoutubeVideo({
+  el: document.getElementById("my-video1")
+});
+var secondPlayer = new YoutubeVideo({
+  el: document.getElementById("my-video2")
+});
+firstPlayer.load();
+secondPlayer.load();
+      </script>
+    </body>
+  </html>
