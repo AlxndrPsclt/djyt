@@ -1,20 +1,85 @@
-	<h1>PrettyEmbed.js</h1>
-<p><strong>Prettier embeds for your YouTubes</strong> with easy to use options like fetch the highest resolution preview image available from YouTube, advanced customization of embed options, and optional <a href="http://fitvidsjs.com/" target="_blank">FitVids</a> support.</p>
+<!DOCTYPE html>
+<html>
+  <body>
+    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player1"></div>
+    <p>SEPARATOR</p>
+    <div id="player2"></div>
 
-	<div class="wrapper">
-    <h2>Pretty :)</h2>
-    <h2>Not Pretty :(</h2>
+    <script>
+// 2. This code loads the IFrame Player API code asynchronously.
+var tag = document.createElement('script');
 
-    <div class="video-container">
-			<div id="test-video"></div>
-		</div><!--/.width-container-->
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-		<div class="video-container not-pretty">
-			<iframe width="560" height="315" src="//www.youtube.com/embed/Cbti19KM3wk" frameborder="0" allowfullscreen></iframe>
-		</div><!--/.video-container-->
-	</div><!--/.wrapper-->
+// 3. This function creates an <iframe> (and YouTube player)
+//    after the API code downloads.
+var player1;
+var player2;
+function onYouTubeIframeAPIReady() {
+  player1 = new YT.Player('player1', {
+    height: '390',
+    width: '640',
+    videoId: 'fGUSviKH9DY',
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+  player2 = new YT.Player('player2', {
+    height: '390',
+    width: '640',
+    videoId: 'hUXml2xczkM',
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
 
-<br style="clear: both;" />
 
-<a class="btn" href="https://github.com/mike-zarandona/prettyembed.js" target="_blank">GitHub</a>
+// 4. The API will call this function when the video player is ready.
+function onPlayerReady(event) {
+  alert("Track ready.")
+  // event.target.playVideo();
+}
 
+// 5. The API calls this function when the player's state changes.
+//    The function indicates that when playing a video (state=1),
+//    the player should play for six seconds and then stop.
+var done = false;
+function onPlayerStateChange(event) {
+  if (event.data == YT.PlayerState.PLAYING && !done) {
+    setTimeout(stopVideo, 6000);
+    done = true;
+  }
+}
+
+function stopVideo1() {
+  player1.stopVideo();
+}
+function playVideo1() {
+  player1.playVideo();
+}
+function setPlaybackRate1(playback_rate) {
+  player1.setPlaybackRate(playback_rate);
+}
+function faster1() {
+  var playback_rate=player1.getPlaybackRate();
+  player1.setPlaybackRate(playback_rate+0.1);
+}
+function slower1() {
+  var playback_rate=player1.getPlaybackRate();
+  player1.setPlaybackRate(playback_rate-0.1);
+}
+
+
+
+function stopVideo() {
+  player.stopVideo();
+}
+    </script>
+  </body>
+</html>
